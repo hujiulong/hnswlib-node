@@ -4,7 +4,10 @@
   "description": "Node.js bindings for Hnswlib",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "repository": "https://github.com/hujiulong/hnswlib-node",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/hujiulong/hnswlib-node.git"
+  },
   "homepage": "https://github.com/hujiulong/hnswlib-node",
   "author": "Atsushi Tatsuma",
   "license": "Apache-2.0",
