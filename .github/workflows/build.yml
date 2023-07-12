@@ -1,50 +1,37 @@
-name: build
+name: Release
 
 on:
   push:
-    branches:
-      - main
-      - develop
-  pull_request:
-    types: [opened, reopened, synchronize]
+    tags:
+      - v*
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build binary for ${{ matrix.os }} and Node.js ${{ matrix.node-version }}
     strategy:
+      fail-fast: false
       matrix:
-        node: ['16', '18', '20']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [16, 18, 20]
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup node ${{ matrix.node }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node }}
-    - name: Install
-      run: yarn install
-    - name: Build and test
-      run: yarn node-gyp rebuild && yarn jest
-  build-win:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup node 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-    - name: Install
-      run: yarn install
-    - name: Build and test
-      run: yarn node-gyp rebuild && yarn jest
-  build-mac:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup node 18.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-    - name: Install
-      run: yarn install
-    - name: Build and test
-      run: yarn node-gyp rebuild && yarn jest
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js  ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install
+        run: npm install
+
+      - name: Pack
+        run: npm run binary:pack
+
+      - name: Release
+        env:
+          NODE_PRE_GYP_GITHUB_TOKEN: ${{ secrets.NODE_PRE_GYP_GITHUB_TOKEN }}
+        run: npm run binary:release
