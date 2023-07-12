@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
-    "url": "https://github.com/hujiulong/hnswlib-node"
+    "type": "git",
+    "url": "http://github.com/hujiulong/hnswlib-node.git"
   },
   "homepage": "https://github.com/hujiulong/hnswlib-node",
   "author": "Atsushi Tatsuma",
