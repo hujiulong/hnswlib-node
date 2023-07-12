@@ -4,6 +4,7 @@
 .gitignore
 .github/
 .husky/
+binary/
 node_modules/
 build/
 doc/
