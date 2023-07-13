@@ -1,6 +1,6 @@
 {
   "name": "hnswlib-node-prebuilt",
-  "version": "1.4.2",
+  "version": "1.4.4",
   "description": "Node.js bindings for Hnswlib",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -49,8 +49,7 @@
   "binary": {
     "module_name": "addon",
     "module_path": "./binary",
-    "host": "https://github.com/hujiulong/hnswlib-node/releases/download/",
-    "remote_path": "v{version}",
-    "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz"
+    "host": "https://unpkg.alibaba-inc.com/hnswlib-node-prebuilt@1.4.4/prebuilt/",
+    "package_name": "{module_name}-{node_abi}-{platform}-{arch}.tar.gz"
   }
 }
