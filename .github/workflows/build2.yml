@@ -11,13 +11,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [16, 18, 20]
+        node-version: [16]
     runs-on: ubuntu-latest
     container: centos/python-38-centos7:latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
 
       - name: Use Node.js  ${{ matrix.node-version }}
         uses: actions/setup-node@v3
